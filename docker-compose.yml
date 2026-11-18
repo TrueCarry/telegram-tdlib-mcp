@@ -1,0 +1,26 @@
+# Deploy on Coolify as a "Docker Compose" resource, or run locally with
+#   docker compose up -d
+#
+# Required environment variables (set them in Coolify's UI):
+#   TDLIB_API_ID, TDLIB_API_HASH   from https://my.telegram.org/apps
+#   TG_PUBLIC_URL                  public https URL Coolify assigns, no trailing path
+#   TG_OAUTH_ACCESS_CODE           the code users type to approve a connection
+services:
+  telegram-mcp:
+    build: .
+    restart: unless-stopped
+    environment:
+      TDLIB_API_ID: ${TDLIB_API_ID:?set TDLIB_API_ID}
+      TDLIB_API_HASH: ${TDLIB_API_HASH:?set TDLIB_API_HASH}
+      TG_PUBLIC_URL: ${TG_PUBLIC_URL:?set TG_PUBLIC_URL}
+      TG_OAUTH_ACCESS_CODE: ${TG_OAUTH_ACCESS_CODE:?set TG_OAUTH_ACCESS_CODE}
+      # Optional: static token for bots/scripts in addition to OAuth.
+      TG_HTTP_TOKEN: ${TG_HTTP_TOKEN:-}
+    expose:
+      - "8787"
+    volumes:
+      # Persists the Telegram login across redeploys.
+      - tdlib-data:/data
+
+volumes:
+  tdlib-data:

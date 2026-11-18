@@ -1,0 +1,19 @@
+node_modules/
+dist/
+*.log
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+
+# TDLib session databases (contain auth keys - never commit).
+# Wildcard so secondary instances (tdlib-data-2, ...) are covered too.
+tdlib-data*/
+*.binlog
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Generated at build time from td_api.tl
+src/generated/schema.json

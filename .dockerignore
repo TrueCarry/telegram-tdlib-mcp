@@ -1,0 +1,14 @@
+node_modules
+dist
+src/generated
+.git
+*.log
+
+# Secrets and TDLib session data must never enter an image layer.
+.env
+.env.*
+tdlib-data*
+*.binlog
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
